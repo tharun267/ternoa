@@ -1,18 +1,40 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
+import { CreateSignatureDto } from './dto/create-signature.dto';
 import { SignatureService } from './signature.service';
+import { diskStorage } from 'multer';
+import { extname, join } from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('signature')
 export class SignatureController {
     constructor(private signatureService: SignatureService) { }
 
     @Get('/')
-    getSignatures(@Req() req: Request, @Res() res: Response) {
-        const arr = Array(10).fill({
-            title: "Title",
-            description: "Hello World",
-            imageUrl: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-        });
-        res.send(arr);
+    async getSignatures(@Req() req: Request, @Res() res: Response) {
+        const signatures = await this.signatureService.find();
+        return res.send(signatures);
+    }
+
+    @Post('/')
+    async create(@Body() createSignatureDto: CreateSignatureDto, @Res() res: Response) {
+        const signature = await this.signatureService.create(createSignatureDto);
+        return res.send(signature);
+    }
+
+    @Post('/image/upload')
+    @UseInterceptors(FileInterceptor('file', {
+        storage: diskStorage({
+            destination: './uploads/images',
+            filename: (req, file, cb) => {
+                const randomName = uuidv4();
+                return cb(null, `${randomName}${extname(file.originalname)}`.toLowerCase());
+            },
+        }),
+    }))
+
+    async upload(@UploadedFile() file: Express.Multer.File, @Res() res: Response) {
+        return res.send({ fileName: '/uploads/images/' + file.filename });
     }
 }
