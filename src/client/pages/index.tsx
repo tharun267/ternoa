@@ -1,8 +1,13 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { Box } from '@chakra-ui/react'
+import { Header } from '../components'
 
 const Home: NextPage = () => {
- return <h1>Hello, World!</h1>
+    return <>
+        <Header />
+        <Box p={4}>Main Content Here</Box>
+    </>
 }
- 
-export default Home
+
+export default Home;
