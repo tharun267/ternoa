@@ -8,8 +8,10 @@ import {
     useDisclosure,
     useColorModeValue,
     Stack,
+    Button,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { Form } from '../Form';
 
 const Links = ['Dashboard'];
 
@@ -27,11 +29,11 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     </Link>
 );
 
-const Header: React.FC = () =>  {
+const Header: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isFormOpen, onClose: onFormClose, onOpen: onFormOpen } = useDisclosure();
 
     return (
-
         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                 <IconButton
@@ -52,8 +54,16 @@ const Header: React.FC = () =>  {
                         ))}
                     </HStack>
                 </HStack>
+                <Button
+                    variant={'solid'}
+                    colorScheme={'teal'}
+                    size={'sm'}
+                    mr={4}
+                    leftIcon={<AddIcon />}
+                    onClick={onFormOpen}>
+                    Add Signature
+                </Button>
             </Flex>
-
             {isOpen ? (
                 <Box pb={4} display={{ md: 'none' }}>
                     <Stack as={'nav'} spacing={4}>
@@ -63,6 +73,7 @@ const Header: React.FC = () =>  {
                     </Stack>
                 </Box>
             ) : null}
+            <Form isOpen={isFormOpen} onClose={onFormClose} />
         </Box>
     );
 }
