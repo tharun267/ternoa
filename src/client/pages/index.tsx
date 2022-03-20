@@ -3,12 +3,7 @@ import { NextPage } from 'next'
 import { SimpleGrid } from '@chakra-ui/react';
 import { Card, Header } from '../components'
 
-const Home: NextPage = () => {
-    const cardsList = Array(10).fill({
-        title: "Title",
-        description: "Hello World",
-        imageUrl: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-    });
+const Home: NextPage = ({ cardsList }) => {
     return <>
         <Header />
         <SimpleGrid minChildWidth='400px' spacing='40px'>
@@ -20,6 +15,14 @@ const Home: NextPage = () => {
             />)}
         </SimpleGrid>
     </>
+}
+
+export async function getServerSideProps({ req }) {
+    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const baseUrl = req ? `${protocol}://${req.headers.host}` : ''
+    const response = await fetch(baseUrl + '/signature');
+    const cardsList = await response.json();
+    return { props: { cardsList } }
 }
 
 export default Home;
