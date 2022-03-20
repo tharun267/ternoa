@@ -12,6 +12,7 @@ const Home: NextPage = ({ cardsList }) => {
                 title={c.title}
                 description={c.description}
                 imageUrl={c.imageUrl}
+                id={c.id}
             />)}
         </SimpleGrid>
     </>

@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                 </HStack>
                 <Button
                     variant={'solid'}
-                    colorScheme={'teal'}
+                    colorScheme={'green'}
                     size={'sm'}
                     mr={4}
                     leftIcon={<AddIcon />}

@@ -16,13 +16,25 @@ export class SignatureService {
         return this.prismaService.signature.findMany();
     }
 
-   /**
-   * Creates a new signature
-   *
-   * @param CreateSignatureDto
-   * @returns result of create
-   */
+    /**
+    * Creates a new signature
+    *
+    * @param CreateSignatureDto
+    * @returns result of create
+    */
     async create(createSignatureDto: CreateSignatureDto): Promise<Signature> {
         return this.prismaService.signature.create({ data: createSignatureDto });
     }
+
+
+    /**
+    * Delete Signature
+    *
+    * @param id
+    * @returns Signature
+    */
+    async delete(id: number): Promise<Signature> {
+        return this.prismaService.signature.delete({ where: { id } })
+    }
+
 }

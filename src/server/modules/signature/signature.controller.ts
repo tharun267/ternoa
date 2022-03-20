@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { CreateSignatureDto } from './dto/create-signature.dto';
 import { SignatureService } from './signature.service';
 import { diskStorage } from 'multer';
-import { extname, join } from 'path';
+import { extname } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
 @Controller('signature')
@@ -34,7 +34,14 @@ export class SignatureController {
         }),
     }))
 
+    @Post('/')
     async upload(@UploadedFile() file: Express.Multer.File, @Res() res: Response) {
         return res.send({ fileName: '/uploads/images/' + file.filename });
+    }
+
+    @Delete(':id')
+    async deleteSignature(@Param('id', ParseIntPipe) id,  @Res() res: Response) {
+        const signature = await this.signatureService.delete(id);
+        return res.send(signature);
     }
 }
