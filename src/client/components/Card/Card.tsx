@@ -9,32 +9,38 @@ import {
   HStack,
   Button,
   Flex,
+  UseDisclosureProps,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { Signature } from '../Form/Form';
 
 type Props = {
-  id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
+  signature: Signature;
+  onFormOpen: UseDisclosureProps['onOpen'];
+  setCurrentSignature: React.Dispatch<React.SetStateAction<Signature>>;
 };
 
-const Card: React.FC<Props> = ({ title, description, imageUrl, id }) => {
+const Card: React.FC<Props> = ({ signature, setCurrentSignature, onFormOpen }) => {
   const router = useRouter();
   const handleDeleteSignature = async () => {
     // setLoading(true);
-    const response = await fetch(`http://localhost:3000/signature/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+    const response = await fetch(`http://localhost:3000/signature/${signature.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
     });
     await response.json();
     // setLoading(false);
     // onClose();
     router.replace(router.asPath);
-}
+  }
+
+  const handleUpdateSignature = () => {
+    setCurrentSignature(signature);
+    onFormOpen();
+  }
 
 
   return (
@@ -55,7 +61,7 @@ const Card: React.FC<Props> = ({ title, description, imageUrl, id }) => {
           mb={6}
           pos={'relative'}>
           <Image
-            src={imageUrl}
+            src={signature.imageUrl}
             layout={'fill'}
           />
         </Box>
@@ -64,16 +70,16 @@ const Card: React.FC<Props> = ({ title, description, imageUrl, id }) => {
             color={useColorModeValue('gray.700', 'white')}
             fontSize={'2xl'}
             fontFamily={'body'}>
-            {title}
+            {signature.title}
           </Heading>
           <Text color={'gray.500'}>
-            {description}
+            {signature.description}
           </Text>
         </Stack>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
           <div />
           <HStack mt={4}>
-            <Button colorScheme='green'>Update</Button>
+            <Button colorScheme='green' onClick={handleUpdateSignature} >Update</Button>
             <Button colorScheme='red' onClick={handleDeleteSignature}>Delete</Button>
           </HStack>
         </Flex>

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Signature } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 import { CreateSignatureDto } from './dto/create-signature.dto';
+import { UpdateSignatureDto } from './dto/update-signature.dto';
 
 @Injectable()
 export class SignatureService {
@@ -36,5 +37,16 @@ export class SignatureService {
     async delete(id: number): Promise<Signature> {
         return this.prismaService.signature.delete({ where: { id } })
     }
+
+    /**
+    * Update Signature
+    *
+    * @param id
+    * @returns Signature
+    */
+    async update(id: number, updateSignatureDto: UpdateSignatureDto): Promise<Signature> {
+        return this.prismaService.signature.update({ data: updateSignatureDto, where: { id } })
+    }
+
 
 }

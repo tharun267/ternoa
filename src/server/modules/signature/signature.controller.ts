@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { CreateSignatureDto } from './dto/create-signature.dto';
@@ -6,6 +6,7 @@ import { SignatureService } from './signature.service';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdateSignatureDto } from './dto/update-signature.dto';
 
 @Controller('signature')
 export class SignatureController {
@@ -40,8 +41,15 @@ export class SignatureController {
     }
 
     @Delete(':id')
-    async deleteSignature(@Param('id', ParseIntPipe) id,  @Res() res: Response) {
+    async deleteSignature(@Param('id', ParseIntPipe) id, @Res() res: Response) {
         const signature = await this.signatureService.delete(id);
+        return res.send(signature);
+    }
+
+    @Put(':id')
+    async updateSignature(@Param('id', ParseIntPipe) id, @Body() updateSignatureDto: UpdateSignatureDto,
+        @Res() res: Response) {
+        const signature = await this.signatureService.update(id, updateSignatureDto);
         return res.send(signature);
     }
 }

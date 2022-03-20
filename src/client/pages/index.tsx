@@ -1,20 +1,27 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { SimpleGrid } from '@chakra-ui/react';
-import { Card, Header } from '../components'
+import { SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import { Card, Form, Header } from '../components'
+import { Signature } from '../components/Form/Form';
 
-const Home: NextPage = ({ cardsList }) => {
+const Home: NextPage<{ cardsList: Signature[] }> = ({ cardsList }: { cardsList: Signature[] }) => {
+    const { isOpen, onClose, onOpen } = useDisclosure();
+    const [currentSignature, setCurrentSignature] = React.useState<Signature>();
     return <>
-        <Header />
+        <Header onFormOpen={onOpen} />
         <SimpleGrid minChildWidth='400px' spacing='40px'>
-            {cardsList.map((c, i) => <Card
+            {cardsList.map((signature, i) => <Card
                 key={i}
-                title={c.title}
-                description={c.description}
-                imageUrl={c.imageUrl}
-                id={c.id}
+                signature={signature}
+                onFormOpen={onOpen}
+                setCurrentSignature={setCurrentSignature}
             />)}
         </SimpleGrid>
+        <Form
+            modalProps={{ isOpen, onClose }}
+            signature={currentSignature}
+            setCurrentSignature={setCurrentSignature}
+        />
     </>
 }
 

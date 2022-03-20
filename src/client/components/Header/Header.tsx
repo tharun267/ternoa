@@ -9,9 +9,9 @@ import {
     useColorModeValue,
     Stack,
     Button,
+    UseDisclosureProps,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
-import { Form } from '../Form';
 
 const Links = ['Dashboard'];
 
@@ -29,9 +29,8 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     </Link>
 );
 
-const Header: React.FC = () => {
+const Header: React.FC<{ onFormOpen: UseDisclosureProps['onOpen'] }> = ({ onFormOpen }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { isOpen: isFormOpen, onClose: onFormClose, onOpen: onFormOpen } = useDisclosure();
 
     return (
         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -73,7 +72,6 @@ const Header: React.FC = () => {
                     </Stack>
                 </Box>
             ) : null}
-            <Form isOpen={isFormOpen} onClose={onFormClose} />
         </Box>
     );
 }
