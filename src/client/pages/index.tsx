@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertIcon, SimpleGrid, useDisclosure } from '@chakra-ui/react';
 import { Card, Form, Header } from '../components'
 import { Signature } from '../components/Form/Form';
 
@@ -9,6 +9,10 @@ const Home: NextPage<{ cardsList: Signature[] }> = ({ cardsList }: { cardsList: 
     const [currentSignature, setCurrentSignature] = React.useState<Signature>();
     return <>
         <Header onFormOpen={onOpen} />
+        {cardsList?.length <= 0 ? <Alert status='warning' margin={4} mt={8}>
+            <AlertIcon />
+            Currently No Signatures Available!
+        </Alert> : null}
         <SimpleGrid minChildWidth='400px' spacing='40px'>
             {cardsList.map((signature, i) => <Card
                 key={i}
