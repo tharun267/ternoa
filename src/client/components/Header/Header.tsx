@@ -1,23 +1,15 @@
 import React, { ReactNode } from 'react'
-import { NextPage } from 'next';
 import {
     Box,
     Flex,
-    Avatar,
     HStack,
     Link,
     IconButton,
-    Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    MenuDivider,
     useDisclosure,
     useColorModeValue,
     Stack,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 const Links = ['Dashboard'];
 
@@ -35,7 +27,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     </Link>
 );
 
-export default function Header(): NextPage {
+const Header: React.FC = () =>  {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
@@ -74,3 +66,5 @@ export default function Header(): NextPage {
         </Box>
     );
 }
+
+export default Header;
