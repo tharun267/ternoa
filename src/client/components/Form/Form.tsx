@@ -92,7 +92,7 @@ const Form: React.FC<Props>
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>{signature ? 'Update' : 'Create'} Signature</ModalHeader>
+                    <ModalHeader>{signature?.id ? 'Update' : 'Create'} Signature</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <FormControl>

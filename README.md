@@ -1,35 +1,29 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Technologies used:
+
+ - Nodejs v14.19.0
+ - Backend - [Nest](https://github.com/nestjs/nest) 
+ - Frontend - [Next](https://nextjs.org/)
+ - SQLite DB
+ - ORM - [Prisma](https://www.prisma.io/docs/)
+ - UI Lib - [Cakra-ui](https://chakra-ui.com/)
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
+```
+
+## Primsa Commands (Setup)
+
+- To Setup Prisma Migration Client Generation for TypeScript
+
+```bash
+
+$ npx prisma migrate dev --name init
+$ npx prisma generate
+
 ```
 
 ## Running the app
@@ -58,27 +52,49 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Project Theme
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- `Create`, `Delete`, `Update`, `List` Signatures of Celebrities.
 
-## Stay in touch
+## Screenshots (UI Output)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Empty Signatures Message
+![empty-signatures.png](empty-signatures.png)
 
-## License
+### Add Signature
+![add-signature.png](add-signature.png)
 
-Nest is [MIT licensed](LICENSE).
+### List Signatures with update and delete buttons
+![list-signatures.png](list-signatures.png)
+
+### Update Signature Form (Reused the same component)
+![update-signature.png](update-signature.png)
+
+### Mobile View (Responsive Design)
+![mobile-view.png](mobile-view.png)
 
 
+## Highlights of the Project
 
-## Primsa Commands
+- Fully `TypeScript` based project with all latest packages.
+- Fully Functional `Next.js` Server Sider Rendering.
+- Used `Nest.js` for Backend Framework which uses the best architecture and structure based on MVC.
+- Clean Folder Structure to easily migratable to `Monorepo`.
+- Used `Chakra UI` for better components and styling.
+- Used `Prisma ORM` for best client library for TypeScript with easy utils like `Seeding`, `Type Gernerations` using CLI.
+- Added clean trackable commits.
 
-```bash
+## Further Improvements
 
-npx prisma migrate dev --name init
-npx prisma generate
+- Migrate the existing Image Upload Logic to AWS S3 or Image hosting Service.
+- Unit Tests and `e2e` Tests.
+- Migrate to Monorepo architecture.
+- Add `MetaMask`
+- Improve Client Service usage with fetch and create utils for `SSR`.
+- Setup `.env` file for different deployments.
+- Setup Github Actions for CI/CD.
+- Setup `Changesets` for versioning.
+- Setup infra scripts for deployment (`AWS SAML`).
+- Improve ESLint & Prettier Configs.
+- Create common `Shared Types`.
 
-```
